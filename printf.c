@@ -24,7 +24,6 @@ int _printf(const char *format, ...)
 		{
 			count += write(1, format, 1);
 		}
-
 		format++;
 	}
 	va_end(args);
