@@ -33,4 +33,19 @@ int process_conversion_specifier(char specifier, va_list args)
 				return (write(1, &specifier, 1));
 	}
 }
+/**
+ *_strlen - calculate length of the string.
+ *@s: the string.
+ *
+ * Return: length of the string.
+ */
+int _strlen(const char *s)
+{
+        int len = 0;
 
+        while (s[len] != '\0')
+        {
+                len++;
+        }
+        return (len);
+}
