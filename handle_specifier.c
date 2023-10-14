@@ -18,17 +18,21 @@ int process_conversion_specifier(char specifier, va_list args)
 
 				return (_putchar(va_arg(args, int)));
 		case 's':
-
 				str = va_arg(args, const char*);
 				if (str == NULL)
+				{
 
 				str = "(null)";
 
+				}
 				return (write(1, str, _strlen(str)));
 
 
 		case '%':
 				return (_putchar('%'));
+		case 'd':
+		case 'i':
+				return (_putchar(va_arg(args, int)));
 		default:
 				return (write(1, &specifier, 1));
 	}
