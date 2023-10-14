@@ -41,11 +41,11 @@ int process_conversion_specifier(char specifier, va_list args)
  */
 int _strlen(const char *s)
 {
-        int len = 0;
+	int len = 0;
 
-        while (s[len] != '\0')
-        {
-                len++;
-        }
-        return (len);
+	while (s[len] != '\0')
+	{
+		len++;
+	}
+	return (len);
 }
