@@ -11,12 +11,14 @@
 int process_conversion_specifier(char specifier, va_list args)
 {
 	const char *str;
+	char c;
 
 	switch (specifier)
 	{
 		case 'c':
+				c = (char) va_arg(args, int);
 
-				return (_putchar(va_arg(args, int)));
+				return (write(1, &c, 1));
 		case 's':
 				str = va_arg(args, const char*);
 				if (str == NULL)
@@ -29,10 +31,7 @@ int process_conversion_specifier(char specifier, va_list args)
 
 
 		case '%':
-				return (_putchar('%'));
-		case 'd':
-		case 'i':
-				return (_putchar(va_arg(args, int)));
+				return (write(1, &specifier, 1));
 		default:
 				return (write(1, &specifier, 1));
 	}
