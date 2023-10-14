@@ -1,5 +1,4 @@
 #include "main.h"
-#include <stdarg.h>
 #include <unistd.h>
 /**
  * _printf - Custom printf function.
@@ -16,7 +15,7 @@ int _printf(const char *format, ...)
 
 	while (*format)
 	{
-		if (*format == '%' && *(format + 1))
+		if (*format == '%')
 		{
 			format++;
 			count += process_conversion_specifier(*format, args);

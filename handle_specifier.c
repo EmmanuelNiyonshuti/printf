@@ -1,5 +1,4 @@
 #include "main.h"
-#include <stdarg.h>
 #include <unistd.h>
 /**
 *process_conversion_specifier - Process and print a conversion specifier
