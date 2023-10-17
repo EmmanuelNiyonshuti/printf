@@ -9,6 +9,7 @@
  */
 int handle_percent(va_list args, char *buf, int index)
 {
+	(void)args;
 	buf[index] = '%';
 	index++;
 

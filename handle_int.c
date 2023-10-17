@@ -17,7 +17,7 @@ int handle_int(va_list args, char *buf, int index)
 		index++;
 		num = -num;
 	}
-	return (handle_unsigned(args, buf, index, num, 10, 0));
+	return (handle_unsigned(args, buf, index, 10, 0));
 }
 /**
  *print_number - Prints an integer using _putchar.

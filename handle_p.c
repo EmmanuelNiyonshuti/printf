@@ -19,6 +19,5 @@ int handle_p(va_list args, char *buf, int index)
 	buf[index++] = '0';
 	buf[index++] = 'x';
 
-	return (handle_unsigned(args, buf, index, (unsigned long)ptr, 16, 0));
+	return (handle_unsigned(args, buf, index, 16, 0));
 }
-

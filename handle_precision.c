@@ -13,8 +13,14 @@
 */
 int handle_precision(va_list args, char *buf, int index, int precision, char specifier)
 {
+	(void)args;
+	(void)buf;
+	(void)index;
+	(void)precision;
+	(void)specifier;
+
 	int count = 0;
-	int num;
+	unsigned int num;
 	int num_digits;
 
 	if (specifier == 'd' || specifier == 'i')
@@ -25,11 +31,11 @@ int handle_precision(va_list args, char *buf, int index, int precision, char spe
 
 		count += num_digits;
 	}
-	else if (specifier == 'u')
+	else if (specifier == 'u' || specifier == 'o' || specifier == 'x' || specifier == 'X')
 	{
 		num = va_arg(args, unsigned int);
 
-		num_digits = print_unsigned_width_precision(num, precision);
+		num_digits = print_unsigned_with_precision(num, precision);
 
 		count += num_digits;
 	}
@@ -45,21 +51,44 @@ int handle_precision(va_list args, char *buf, int index, int precision, char spe
 */
 int print_number_with_precision(int n, int precision)
 {
-	int count_digits = 0;
+	int count = 0;
 
 	if (n < 0)
 	{
 		_putchar('-');
-		count_digits++;
+		count++;
+		n = -n;
 	}
 
-	if (n / 10)
-		count_digits += print_number(n / 10);
+	if (precision > 0)
+	{
+		while (precision > 0)
+		{
+			_putchar('0' + n / power_of_10(precision - 1));
+			count++;
+			n %= power_of_10(precision - 1);
+			precision--;
+		}
+	}
+	return (count);
+}
+/**
+ *power_of_10 - Computes 10 to the power of n.
+ *@n: The exponent.
+ *
+ *Return: 10 to the power of n.
+ */
 
-		_putchar(n % 10 + '0');
-		count_digits++;
+int power_of_10(int n)
+{
+	int result = 1;
 
-		return (count_digits);
+	while (n > 0)
+	{
+		result *= 10;
+		n--;
+	}
+	return (result);
 }
 /**
  * print_unsigned_with_precision - Prints an unsigned integer with precision.
@@ -68,7 +97,7 @@ int print_number_with_precision(int n, int precision)
  *
  * Return: The number of digits printed.
  */
-int print_unsigned_with_precision(unsigned int n, int precision)
+int print_unsigned_with_precision(int n, int precision)
 {
 	int count_digits = 0;
 

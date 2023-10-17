@@ -11,12 +11,11 @@ int handle_string(va_list args, char *buf, int index)
 {
 	int i;
 	int count = 0;
-	char null_str[];
 	char *str = va_arg(args, char*);
 
 	if (str == NULL)
 	{
-		null_str[] = "(null)";
+		char null_str[] = "(null)";
 
 		for (i = 0; null_str[i]; i++)
 		{

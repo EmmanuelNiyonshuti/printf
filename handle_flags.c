@@ -12,6 +12,11 @@
  */
 int handle_flags(va_list args, char *buf, int index, char flags, const char *format)
 {
+	(void)args;
+	(void)buf;
+	(void)index;
+	(void)flags;
+	(void)format;
 	int num;
 	int num_digits;
 	int count = 0;
@@ -95,8 +100,8 @@ int handle_flags(va_list args, char *buf, int index, char flags, const char *for
 
                 if (str == NULL)
                 {
-                    return handle_str(buf, index, "(null)");
-                }
+                    return (handle_str(buf, index, "(null)"));
+		}
 
                 buf[index] = '+';
                 index++;
@@ -147,7 +152,7 @@ int handle_flags(va_list args, char *buf, int index, char flags, const char *for
             {
                 if (ptr == NULL)
                 {
-                    return handle_str(buf, index, "(nil)");
+                    return (handle_str(buf, index, "(nil)"));
                 }
 
                 buf[index++] = '+';

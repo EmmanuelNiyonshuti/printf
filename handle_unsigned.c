@@ -7,7 +7,7 @@
  *
  * Return: The index after handling the specifier.
  */
-int handle_unsigned(va_list args, char *buf, int index)
+int handle_unsigned(va_list args, char *buf, int index, int base, int is_upper)
 {
 	unsigned int num = va_arg(args, unsigned int);
 	int i = 0;
