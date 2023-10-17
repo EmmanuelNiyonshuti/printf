@@ -7,7 +7,7 @@
  *
  * Return: The updated index.
  */
-int handle_percent(__attribute__((unused)) va_list args, char *buf, int index)
+int handle_percent(va_list args, char *buf, int index)
 {
 	buf[index] = '%';
 	index++;

@@ -1,6 +1,4 @@
 #include "main.h"
-#include <stdarg.h>
-#include <unistd.h>
 
 /**
  * _printf - Produces output according to a format.
@@ -38,7 +36,13 @@ int _printf(const char *format, ...)
 
             if (*format)
             {
-                count += handle_conversion_specifier(*format, args, width);
+                int result = handle_conversion_specifier(*format, args, width);
+                if (result == -1)
+                {
+                    va_end(args);
+                    return -1;
+                }
+                count += result;
                 format++;
             }
         }
@@ -70,39 +74,37 @@ int handle_conversion_specifier(char specifier, va_list args, int width)
 
     switch (specifier)
     {
-        case 'c':
-            c = va_arg(args, int);
-            count += print_char_width(c, width);
-            break;
+    case 'c':
+        c = va_arg(args, int);
+        count += print_char_width(c, width);
+        break;
 
-        case 's':
-            str = va_arg(args, char *);
-            count += print_str_width(str ? str : "(null)", width);
-            break;
+    case 's':
+        str = va_arg(args, char *);
+        count += print_str_width(str ? str : "(null)", width);
+        break;
 
-        case '%':
-            write(1, "%", 1);
+    case '%':
+        write(1, "%", 1);
+        count++;
+        break;
+
+    case 'd':
+    case 'i':
+        if (width < 0)
+        {
+            width = -width;
+            write(1, "-", 1);
             count++;
-            break;
-
-        case 'd':
-        case 'i':
- 
-            if (width < 0)
-            {
-                width = -width;
-                write(1, "-", 1);
-                count++;
-            }
-            count += print_number_width(va_arg(args, int), width);
-            break;
+        }
+        count += print_number_width(va_arg(args, int), width);
+        break;
 
 
 
-        default:
-            write(1, "Invalid conversion specifier\n", 29);
-            count = -1;
-            break;
+    default:
+
+        return -1;
     }
 
     return count;
@@ -120,9 +122,7 @@ int print_number_width(int num, int width)
     char buffer[20];
     int count = 0;
 
-
     int length = snprintf(buffer, sizeof(buffer), "%d", num);
-
 
     if (length < width)
     {
@@ -150,7 +150,6 @@ int print_number_width(int num, int width)
 int print_char_width(char c, int width)
 {
     int count = 0;
-
 
     if (width > 1)
     {

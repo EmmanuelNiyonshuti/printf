@@ -5,19 +5,21 @@
  * @buf: The buffer to store the result.
  * @index: The current index in the buffer.
  *
- * Return: The number of characters printed.
+ * Return: The updated index.
  */
 int handle_char(va_list args, char *buf, int index)
 {
-	char c = va_arg(args, int);
+    char c = va_arg(args, int);
 
-	buf[index] = c;
-	index++;
+    if (index < 1023) {
+        buf[index] = c;
+        index++;
+    } else {
+        write(1, buf, index);
+        index = 0;
+        buf[index] = c;
+        index++;
+    }
 
-	if (index == 1023)
-	{
-		write(1, buf, index);
-		index = 0;
-	}
-	return (index);
+    return index;
 }

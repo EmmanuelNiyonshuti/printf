@@ -12,73 +12,77 @@
  */
 int handle_flags(va_list args, char *buf, int index, char flags, const char *format)
 {
-    int count = 0;
+	int num;
+	int num_digits;
+	int count = 0;
+	char *str;
+	void *ptr;
+	unsigned long ptr_value;
 
-    if (flags == '+' || flags == ' ')
-    {
-        if (*format == 'd' || *format == 'i')
-        {
-            int num = va_arg(args, int);
+	if (flags == '+' || flags == ' ')
+	{
+		if (*format == 'd' || *format == 'i')
+		{
+			num = va_arg(args, int);
 
-            if (flags == '+' && num >= 0)
-            {
-                buf[index] = '+';
-                index++;
-                count++;
-            }
-            else if (flags == ' ' && num >= 0)
-            {
-                buf[index] = ' ';
-                index++;
-                count++;
-            }
+		if (flags == '+' && num >= 0)
+		{
+			buf[index] = '+';
+			index++;
+			count++;
+		}
+		else if (flags == ' ' && num >= 0)
+		{
+			buf[index] = ' ';
+			index++;
+			count++;
+		}
 
-            int num_digits = print_number(num);
+		num_digits = print_number(num);
 
-            count += num_digits;
-        }
-        else if (*format == 'u')
-        {
-            unsigned int num = va_arg(args, unsigned int);
+		count += num_digits;
+		}
+		else if (*format == 'u')
+		{
+			num = va_arg(args, unsigned int);
 
-            if (flags == '+')
-            {
-                buf[index] = '+';
-                index++;
-                count++;
-            }
+		if (flags == '+')
+		{
+			buf[index] = '+';
+			index++;
+			count++;
+		}
 
-            int num_digits = handle_unsigned(args, buf, index, num, 10, 0);
+		num_digits = handle_unsigned(args, buf, index, 10, 0);
 
-            count += num_digits;
-        }
-        else if (*format == 'x' || *format == 'X' || *format == 'o')
-        {
-            if (flags == '+' && *format != 'o')
-            {
-                buf[index] = '+';
-                index++;
-                count++;
-            }
+		count += num_digits;
+		}
+		else if (*format == 'x' || *format == 'X' || *format == 'o')
+		{
+		if (flags == '+' && *format != 'o')
+		{
+		buf[index] = '+';
+		index++;
+		count++;
+ 		}
 
-            if (flags == ' ')
-            {
-                buf[index] = ' ';
-                index++;
-                count++;
-            }
+		if (flags == ' ')
+		{
+		buf[index] = ' ';
+		index++;
+		count++;
+		}
 
-            if (*format == 'x' || *format == 'X')
-            {
-                unsigned int num = va_arg(args, unsigned int);
-                int num_digits = handle_unsigned(args, buf, index, num, 16, (*format == 'X'));
-
-                count += num_digits;
-            }
-            else if (*format == 'o')
-            {
-                unsigned int num = va_arg(args, unsigned int);
-                int num_digits = handle_unsigned(args, buf, index, num, 8, 0);
+		if (*format == 'x' || *format == 'X')
+		{
+			num = va_arg(args, unsigned int);
+			num_digits = handle_unsigned(args, buf, index, 16, (*format == 'X'));
+			count += num_digits;
+		}
+		else if (*format == 'o')
+		{
+			num = va_arg(args, unsigned int);
+			num_digits = handle_unsigned(args, buf, index, 8, 0);
 
                 count += num_digits;
             }
@@ -87,7 +91,7 @@ int handle_flags(va_list args, char *buf, int index, char flags, const char *for
         {
             if (flags == '+')
             {
-                char *str = va_arg(args, char *);
+               str = va_arg(args, char *);
 
                 if (str == NULL)
                 {
@@ -114,7 +118,7 @@ int handle_flags(va_list args, char *buf, int index, char flags, const char *for
             }
             else
             {
-                char *str = va_arg(args, char *);
+                str = va_arg(args, char *);
 
                 if (str == NULL)
                 {
@@ -137,7 +141,7 @@ int handle_flags(va_list args, char *buf, int index, char flags, const char *for
         }
         else if (*format == 'p')
         {
-            void *ptr = va_arg(args, void *);
+            ptr = va_arg(args, void *);
 
             if (flags == '+')
             {
@@ -148,9 +152,9 @@ int handle_flags(va_list args, char *buf, int index, char flags, const char *for
 
                 buf[index++] = '+';
 
-                unsigned long ptr_value = (unsigned long)ptr;
+               ptr_value = (unsigned long)ptr;
 
-                index = handle_unsigned(args, buf, index, ptr_value, 16, 0);
+                index = handle_unsigned(args, buf, index, 16, 0);
             }
             else
             {
@@ -159,11 +163,11 @@ int handle_flags(va_list args, char *buf, int index, char flags, const char *for
                     return handle_str(buf, index, "(nil)");
                 }
 
-                unsigned long ptr_value = (unsigned long)ptr;
-                index = handle_unsigned(args, buf, index, ptr_value, 16, 0);
+                ptr_value = (unsigned long)ptr;
+                index = handle_unsigned(args, buf, index, 16, 0);
             }
         }
-        else if (*format == 'r')  // Placeholder for handling %r
+        else if (*format == 'r')
         {
             index = handle_reverse(args, buf, index);
         }

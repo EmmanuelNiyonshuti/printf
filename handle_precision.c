@@ -14,20 +14,22 @@
 int handle_precision(va_list args, char *buf, int index, int precision, char specifier)
 {
 	int count = 0;
+	int num;
+	int num_digits;
 
 	if (specifier == 'd' || specifier == 'i')
 	{
-		int num = va_arg(args, int);
+		num = va_arg(args, int);
 
-		int num_digits = print_number_with_precision(num, precision);
+		num_digits = print_number_with_precision(num, precision);
 
 		count += num_digits;
 	}
 	else if (specifier == 'u')
 	{
-		unsigned int num = va_arg(args, unsigned int);
+		num = va_arg(args, unsigned int);
 
-		int num_digits = print_unsigned_width_precision(num, precision);
+		num_digits = print_unsigned_width_precision(num, precision);
 
 		count += num_digits;
 	}

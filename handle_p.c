@@ -13,12 +13,12 @@ int handle_p(va_list args, char *buf, int index)
 
 	if (!ptr)
 	{
-		return (handle_str(buf, index, "(nil)");
+		return (handle_str(buf, index, "(nil)"));
 	}
 
 	buf[index++] = '0';
 	buf[index++] = 'x';
 
-	return (handle_unsigned(args, buf, index, (unsigned long)ptr, 16, 0);
+	return (handle_unsigned(args, buf, index, (unsigned long)ptr, 16, 0));
 }
 

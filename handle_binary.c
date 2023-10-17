@@ -9,7 +9,10 @@
 */
 int handle_binary(va_list args, char *buf, int index)
 {
-	unsigned int num = va_arg(args, unsigned int);
+	(void)buf;
+	unsigned int num;
 
-	return (handle_unsigned(args, buf, index, num, 2, 0));
+	num = va_arg(args, unsigned int);
+
+	return (handle_unsigned(args, buf, index, 2, 0));
 }
