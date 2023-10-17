@@ -23,6 +23,7 @@ int handle_flags(va_list args, char *buf, int index, char flags, const char *for
 	char *str;
 	void *ptr;
 	unsigned long ptr_value;
+	int width = 0;
 
 	if (flags == '+' || flags == ' ')
 	{
@@ -175,6 +176,7 @@ int handle_flags(va_list args, char *buf, int index, char flags, const char *for
         else if (*format == 'r')
         {
             index = handle_reverse(args, buf, index);
+	    count += handle_conversion_specifier(*format, args, width);
         }
     }
 

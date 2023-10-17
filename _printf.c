@@ -71,6 +71,8 @@ int handle_conversion_specifier(char specifier, va_list args, int width)
 	char c;
 	char *str;
 	int count = 0;
+	char* buf;
+	int index;
 
 	switch (specifier)
 	{
@@ -97,6 +99,16 @@ int handle_conversion_specifier(char specifier, va_list args, int width)
 			count++;
 		}
 		count += print_number_width(va_arg(args, int), width);
+		break;
+	case 'r':
+		buf = malloc(1024);
+		if (buf == NULL)
+		{
+			return (-1);
+		}
+		index = 0;
+		count += handle_reverse(args, buf, index);
+		free(buf);
 		break;
 	default:
 

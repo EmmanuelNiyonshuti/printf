@@ -27,6 +27,11 @@ int handle_reverse(va_list args, char *buf, int index)
     {
         buf[index] = str[i];
         index++;
+	if (index == 1023)
+	{
+		write(1, buf, index);
+		index = 0;
+	}
     }
 
     return index;
