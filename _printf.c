@@ -32,6 +32,9 @@ int _printf(const char *format, ...)
 				case 'i':
 					count += handle_int(args);
 					break;
+				case 'b':
+					count += handle_binary(args);
+					break;
 
 				default:
 					write(1, "%", 1);
