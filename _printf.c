@@ -150,15 +150,21 @@ int print_char_width(char c, int width)
 
 	if (width > 1)
 	{
-	padding = width - 1;
-	while (padding-- > 0)
-		{
-		write(1, " ", 1);
+		padding = width - 1;
+		write(1, &c, 1);
 		count++;
-		}
+
+		while (padding-- > 0)
+			{
+				write(1, " ", 1);
+				count++;
+			}
 	}
-	write(1, &c, 1);
-	count++;
+	else
+	{
+		write(1, &c, 1);
+		count++;
+	}
 
 	return (count);
 }
@@ -177,16 +183,21 @@ int print_str_width(char *str, int width)
 
 	if (length < width)
 	{
-	padding = width - length;
-	while (padding-- > 0)
+		padding = width - length;
+		write(1, str ? str : "(null)", length);
+		count += length;
+
+		while (padding-- > 0)
 		{
-		write(1, " ", 1);
-		count++;
+			write(1, " ", 1);
+			count++;
 		}
 	}
-
-	write(1, str ? str : "(null)", length);
-	count += length;
+	else
+	{
+		write(1, str ? str : "(null)", length);
+		count += length;
+	}
 
 	return (count);
 }
