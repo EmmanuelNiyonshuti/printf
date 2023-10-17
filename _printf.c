@@ -28,6 +28,10 @@ int _printf(const char *format, ...)
 				case '%':
 					count += handle_percent();
 					break;
+				case 'd':
+				case 'i':
+					count += handle_int(args);
+					break;
 
 				default:
 					write(1, "%", 1);
