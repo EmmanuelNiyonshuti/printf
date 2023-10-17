@@ -9,17 +9,20 @@
  */
 int handle_char(va_list args, char *buf, int index)
 {
-    char c = va_arg(args, int);
+	char c = va_arg(args, int);
 
-    if (index < 1023) {
-        buf[index] = c;
-        index++;
-    } else {
-        write(1, buf, index);
-        index = 0;
-        buf[index] = c;
-        index++;
-    }
+	if (index < 1023)
+	{
+	buf[index] = c;
+	index++;
+	}
+	else
+	{
+	write(1, buf, index);
+	index = 0;
+	buf[index] = c;
+	index++;
+	}
 
-    return index;
+	return (index);
 }
