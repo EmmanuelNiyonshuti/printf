@@ -5,6 +5,8 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+#include <ctype.h>
 
 int _putchar(char c);
 int handle_char(va_list args, char *buf, int index);

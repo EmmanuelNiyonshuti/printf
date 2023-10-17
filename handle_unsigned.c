@@ -22,13 +22,13 @@ int handle_unsigned(va_list args, char *buf, int index, int base, int is_upper)
 	while (num > 0)
 	{
 		temp[i] = num % 10 + '0';
-		num = num / 10;
+		num = num / base;
 		i++;
 	}
 
 	for (i = i - 1; i >= 0; i--)
 	{
-		buf[index] = temp[i];
+		buf[index] = is_upper ? toupper(temp[i]) : temp[i];
 		index++;
 	}
 

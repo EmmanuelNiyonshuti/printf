@@ -108,6 +108,7 @@ int handle_conversion_specifier(char specifier, va_list args, int width)
 		}
 		index = 0;
 		count += handle_reverse(args, buf, index);
+		write(1, buf, index);
 		free(buf);
 		break;
 	default:
